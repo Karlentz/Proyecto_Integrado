@@ -4,7 +4,10 @@ module net.codejava.mongodb.laynezjourney {
 
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
+    requires java.sql;
 
-    opens net.codejava.mongodb.laynezjourney to javafx.fxml;
-    exports net.codejava.mongodb.laynezjourney;
+    opens controller to javafx.fxml;
+    exports controller;
+    exports controller.connection;
+    opens controller.connection to javafx.fxml;
 }
