@@ -10,4 +10,18 @@ public class Messages {
         alert.setHeaderText(text);
         alert.show();
     }
+
+    public static void showWarningMessage(String title, String text) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(text);
+        alert.show();
+    }
+
+    public static void showErrorMessage(String title, String text) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(text);
+        alert.show();
+    }
 }

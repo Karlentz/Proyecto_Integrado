@@ -1,5 +1,7 @@
 package controller.connection;
 
+import models.Messages;
+
 import java.io.Closeable;
 import java.io.IOException;
 import java.sql.*;
@@ -40,8 +42,12 @@ public class DatabaseConnector implements Closeable {
             this.statement = connection.prepareStatement(query);
             this.statement.executeUpdate();
             return true;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (SQLIntegrityConstraintViolationException e) {
+            Messages.showWarningMessage("Usuario ya existente","El correo introducido ya existe");
+        } catch (SQLException e){
+            Messages.showErrorMessage("Error en la inserción","Se ha producido un error intentando registrar la cuenta");
+        } finally {
+            return false;
         }
     }
 
