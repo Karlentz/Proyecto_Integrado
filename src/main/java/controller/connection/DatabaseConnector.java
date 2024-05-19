@@ -37,7 +37,7 @@ public class DatabaseConnector implements Closeable {
         }
     }
 
-    public boolean insert(String query){
+    public boolean edit(String query){
         try {
             this.statement = connection.prepareStatement(query);
             this.statement.executeUpdate();

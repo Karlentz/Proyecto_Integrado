@@ -1,10 +1,11 @@
 package controller;
 
 import controller.connection.DatabaseConnector;
-import javafx.application.Application;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -12,7 +13,7 @@ import models.Messages;
 
 import java.sql.ResultSet;
 
-public class LoginController extends Application {
+public class LoginController  {
 
     @FXML
     private TextField txtEmail;
@@ -20,16 +21,26 @@ public class LoginController extends Application {
     @FXML
     private TextField txtPassword;
 
-    public static void main(String[] args) {
-        launch(args);
+    @FXML
+    private Button goLoginButton;
+
+    public void goToRegister(){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("register.fxml"));
+            Parent root1 = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/Icono.png")));
+            stage.setTitle("register");
+            stage.setScene(new Scene(root1));
+            stage.show();
+            Stage myStage = (Stage) this.goLoginButton.getScene().getWindow();
+            myStage.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
-    @Override
-    public void start(Stage login) {
-
-    }
-
-    public void iniciarSesion(){
+    public void logIn(){
         DatabaseConnector database = DatabaseConnector.getInstance();
         String email = txtEmail.getText();
         String contraseña = txtPassword.getText();

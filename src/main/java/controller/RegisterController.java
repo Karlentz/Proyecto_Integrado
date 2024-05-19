@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -13,12 +14,10 @@ import javafx.stage.Stage;
 import models.Messages;
 import models.Validations;
 
-import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
-public class RegisterController extends Application {
-
-    private Stage register;
-
+public class RegisterController {
     @FXML
     private TextField txtName;
 
@@ -29,21 +28,33 @@ public class RegisterController extends Application {
     private PasswordField txtPassword;
 
     @FXML
+    private PasswordField txtRepeatPassword;
+
+    @FXML
+    private Button goLoginButton;
+
+    @FXML
     public void registerUser() {
         DatabaseConnector database = DatabaseConnector.getInstance();
         String user = txtName.getText();
         String email = txtEmail.getText();
         String password = txtPassword.getText();
+        String repeatPassword = txtRepeatPassword.getText();
 
         if (Validations.validarEmail(email)){
             if (Validations.checkNull(user)){
                 if (Validations.checkNull(password)){
-                    try {
-                        database.insert(
-                                "INSERT INTO client VALUES ('" + email + "', '" + user + "', '" + password + "')"
-                        );
-                        Messages.showConfirmationMessage("Bienvenido","Usuario creado");
-                    }catch (Exception e){}
+                    if (password.equals(repeatPassword)){
+                        try {
+                            byte[] hashedPassword1 = hashPassword(password);
+                            database.edit(
+                                    "INSERT INTO client VALUES ('" + email + "', '" + user + "', '" + hashedPassword1.toString() + "')"
+                            );
+                            Messages.showConfirmationMessage("Bienvenido","Usuario creado");
+                        }catch (Exception e){}
+                    }else{
+                        Messages.showWarningMessage("Contraseñas no coinciden","Las contraseñas no son iguales");
+                    }
                 }else{
                     Messages.showWarningMessage("Contraseña vacía","La contraseña no puede estar vacía");
                 }
@@ -55,12 +66,15 @@ public class RegisterController extends Application {
         }
     }
 
-    @Override
-    public void start(Stage stage) throws Exception {
-    }
-
-    public void setFxml(Stage stage) {
-        this.register = stage;
+    // Método para obtener el hash de una contraseña usando SHA-256
+    public static byte[] hashPassword(String password) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            return digest.digest(password.getBytes());
+        }catch (NoSuchAlgorithmException e){
+            System.out.println("Error cifrando la contraseña");
+            return null;
+        }
     }
 
     public void goToLogin(){
@@ -72,7 +86,8 @@ public class RegisterController extends Application {
             stage.setTitle("Login");
             stage.setScene(new Scene(root1));
             stage.show();
-            register.hide();
+            Stage myStage = (Stage) this.goLoginButton.getScene().getWindow();
+            myStage.close();
         }catch (Exception e){
             e.printStackTrace();
         }
