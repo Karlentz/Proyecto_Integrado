@@ -9,11 +9,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import models.I18N;
 import models.Messages;
 
 import java.sql.ResultSet;
+import java.util.ResourceBundle;
 
-public class LoginController  {
+import static models.I18N.bundle;
+
+public class LoginController{
 
     @FXML
     private TextField txtEmail;
@@ -22,18 +26,21 @@ public class LoginController  {
     private TextField txtPassword;
 
     @FXML
-    private Button goLoginButton;
+    private Button goRegisterButton;
 
+    @FXML
     public void goToRegister(){
         try {
+            bundle = ResourceBundle.getBundle("register",I18N.getLocale());
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("register.fxml"));
-            Parent root1 = fxmlLoader.load();
+            fxmlLoader.setResources(bundle);
+            Parent root = fxmlLoader.load();
             Stage stage = new Stage();
             stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/Icono.png")));
-            stage.setTitle("register");
-            stage.setScene(new Scene(root1));
+            stage.setTitle("Register");
+            stage.setScene(new Scene(root));
             stage.show();
-            Stage myStage = (Stage) this.goLoginButton.getScene().getWindow();
+            Stage myStage = (Stage) this.goRegisterButton.getScene().getWindow();
             myStage.close();
         }catch (Exception e){
             e.printStackTrace();
@@ -44,7 +51,6 @@ public class LoginController  {
         DatabaseConnector database = DatabaseConnector.getInstance();
         String email = txtEmail.getText();
         String contraseña = txtPassword.getText();
-
         try {
             ResultSet rs = database.consult(
                     "SELECT * FROM client WHERE email = '" + email + "' AND password = '" + contraseña + "'"

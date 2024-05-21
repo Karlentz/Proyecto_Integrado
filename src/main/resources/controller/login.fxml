@@ -10,19 +10,19 @@
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
     <VBox alignment="CENTER" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0"
           AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-        <Label text="Inicio de Sesión"/>
-        <TextField fx:id="txtEmail" promptText="Correo electrónico"/>
-        <PasswordField fx:id="txtPassword" promptText="Contraseña"/>
-        <Button onAction="#logIn" text="Iniciar Sesión"/>
+        <Label text="%login.title"/>
+        <TextField fx:id="txtEmail" promptText="%login.prompt.email"/>
+        <PasswordField fx:id="txtPassword" promptText="%login.prompt.password"/>
+        <Button onAction="#logIn" text="%login.button.submit"/>
         <Pane prefHeight="46.0" prefWidth="259.0">
             <children>
-                <Label layoutX="29.0" layoutY="16.0" text="¿No tienes cuenta?">
+                <Label layoutX="29.0" layoutY="16.0" text="%login.noaccount">
                     <font>
                         <Font size="10.0"/>
                     </font>
                 </Label>
-                <Button fx:id="goLoginButton" layoutX="141.0" layoutY="14.0" mnemonicParsing="false"
-                        onAction="#goToRegister" prefHeight="21.0" prefWidth="85.0" text="Registrarse"
+                <Button fx:id="goRegisterButton" layoutX="141.0" layoutY="14.0" mnemonicParsing="false"
+                        onAction="#goToRegister" prefHeight="21.0" prefWidth="85.0" text="%login.button.register"
                         textAlignment="CENTER">
                     <font>
                         <Font size="10.0"/>

@@ -7,31 +7,33 @@
 
 <AnchorPane prefHeight="288.0" prefWidth="279.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegisterController">
     <VBox alignment="CENTER" layoutX="120.0" layoutY="50.0" prefWidth="319.0" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-        <Label text="Registro de Usuario">
-         <VBox.margin>
-            <Insets bottom="10.0" top="5.0" />
-         </VBox.margin></Label>
-        <TextField fx:id="txtName" promptText="Nombre" />
-        <TextField fx:id="txtEmail" promptText="Correo Electrónico" />
-        <PasswordField fx:id="txtPassword" promptText="Contraseña" />
-        <PasswordField fx:id="txtRepeatPassword" promptText="Repetir contraseña" />
-        <Button onAction="#registerUser" text="Registrar">
-         <VBox.margin>
-            <Insets />
-         </VBox.margin></Button>
-      <Pane prefHeight="46.0" prefWidth="259.0">
-         <children>
-            <Label layoutX="29.0" layoutY="16.0" text="¿Ya tienes una cuenta?">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </Label>
-            <Button fx:id="goLoginButton" layoutX="141.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToLogin" prefHeight="21.0" prefWidth="85.0" text="Iniciar sesion" textAlignment="CENTER">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </Button>
-         </children>
-      </Pane>
+        <Label text="%label.registerUser">
+            <VBox.margin>
+                <Insets bottom="10.0" top="5.0" />
+            </VBox.margin>
+        </Label>
+        <TextField fx:id="txtName" promptText="%prompt.name" />
+        <TextField fx:id="txtEmail" promptText="%prompt.email" />
+        <PasswordField fx:id="txtPassword" promptText="%prompt.password" />
+        <PasswordField fx:id="txtRepeatPassword" promptText="%prompt.repeatPassword" />
+        <Button onAction="#registerUser" text="%button.register">
+            <VBox.margin>
+                <Insets />
+            </VBox.margin>
+        </Button>
+        <Pane prefHeight="46.0" prefWidth="259.0">
+            <children>
+                <Label layoutX="29.0" layoutY="16.0" text="%label.haveAccount">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Label>
+                <Button fx:id="goLoginButton" layoutX="141.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToLogin" prefHeight="21.0" prefWidth="85.0" text="%button.login" textAlignment="CENTER">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Button>
+            </children>
+        </Pane>
     </VBox>
 </AnchorPane>

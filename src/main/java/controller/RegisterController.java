@@ -11,11 +11,15 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import models.I18N;
 import models.Messages;
 import models.Validations;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ResourceBundle;
+
+import static models.I18N.bundle;
 
 public class RegisterController {
     @FXML
@@ -79,12 +83,14 @@ public class RegisterController {
 
     public void goToLogin(){
         try {
+            bundle = ResourceBundle.getBundle("login",I18N.getLocale());
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
-            Parent root1 = fxmlLoader.load();
+            fxmlLoader.setResources(bundle);
+            Parent root = fxmlLoader.load();
             Stage stage = new Stage();
             stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/Icono.png")));
             stage.setTitle("Login");
-            stage.setScene(new Scene(root1));
+            stage.setScene(new Scene(root));
             stage.show();
             Stage myStage = (Stage) this.goLoginButton.getScene().getWindow();
             myStage.close();
